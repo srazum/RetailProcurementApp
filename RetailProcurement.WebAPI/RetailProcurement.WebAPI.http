@@ -1,0 +1,6 @@
+@RetailProcurement.WebAPI_HostAddress = http://localhost:5171
+
+GET {{RetailProcurement.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

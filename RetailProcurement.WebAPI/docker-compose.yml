@@ -1,0 +1,42 @@
+﻿version: '3.4'
+
+networks:
+  dockerapi-dev:
+    driver: bridge 
+
+services:
+  dockerapi:
+    image: dockerapi:latest
+    depends_on:
+      - "postgres_image"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"     
+    environment:
+      ConnectionStrings:DefaultConnection: "host=postgres_image;port=5432;database=retailprocurementdb;username=root;password=root"
+      USER: "admin"
+      PASSWORD: "P@55w0rd"
+      JWT_ISSUER: "RetailProcurementApp"
+      JWT_KEY: "thisisasecretkey@123thisisasecretkey@123"
+      JWT_AUDIENCE: "http://localhost:49173"
+    networks:
+      - dockerapi-dev  
+  
+  postgres_image:
+    image: postgres:latest
+    ports:
+      - "5432"
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "root"
+      POSTGRES_DB: "retailprocurementdb"
+    networks:
+      - dockerapi-dev
+volumes:
+  db_volume:
+         
