@@ -1,11 +1,15 @@
 # RetailProcurementApp
 
-This app is a simple app that allows you to create a purchase order and send it to a vendor. It also allows you to view all purchase orders that have been created and sent to a vendor. This app is built using the following technologies:
+This app is a simple app that allows you to create a purchase order and manage all entities for a simple procurement logic. This app is built using the following technologies:
 ASP.NET Core 8
 Entity Framework Core 8
 PostgreSQL 12
+SignalR
+Docker
+XUnit
+etc.
 
-Due to its simplicity it is contained in a single project, although a different approach would be used for app that would continue to grow.
+Due to its simplicity all functionality is contained in a single project, although a different approach would be used for app that would continue to grow.
 
 ## Getting Started
 
