@@ -88,12 +88,13 @@ Solution contains:
 What was done partially:
 - SignalR hub provides hub for sending notifications to clients when new order is created, but client side is not implemented
 - unit tests and integration test were implemented only for some of the endpoints and some business logic
-- more creative way of using OOP patterns and principles
 
 What could be improved:
 - better error handling and more versatile error messages and return status codes
 - implement logging and monitoring with tools like Seq or more advanced tools
+- more creative way of using OOP patterns and principles
 - implement caching for statistics or quarterly plans (quarterly plans and statistics may be cached for some time based on how often is data updated)
+- using automapper or manual mapping mechanism (didn't use it due to unknown business requirements
 
 ### OOP patterns and principles used
 
