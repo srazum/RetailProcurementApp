@@ -4,6 +4,7 @@ using RetailProcurement.WebAPI.Persistence;
 using RetailProcurement.WebAPI.Services.Abstraction;
 using RetailProcurement.WebAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using RetailProcurement.WebAPI.Dtos;
 
 namespace RetailProcurement.WebAPI.Controllers
 {
@@ -23,29 +24,30 @@ namespace RetailProcurement.WebAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<SupplierStoreItem> Get()
+        public IEnumerable<SupplierStoreItemDto> Get()
         {
-            return _supplierStoreItemOperations.GetAll();
+            return _supplierStoreItemOperations.GetAll().Select(e=> new SupplierStoreItemDto { Id = e.Id, Price = e.Price, StoreItemId = e.StoreItemId, SupplierId = e.SupplierId });
         }
 
         [HttpGet]
         [Route("{id}")]
-        public SupplierStoreItem GetById(string id)
+        public SupplierStoreItemDto GetById(string id)
         {
-            return _supplierStoreItemOperations.GetById(id);
+            var supplierStoreItem = _supplierStoreItemOperations.GetById(id);
+            return new SupplierStoreItemDto { Id = supplierStoreItem.Id, Price = supplierStoreItem.Price, StoreItemId = supplierStoreItem.StoreItemId, SupplierId = supplierStoreItem.SupplierId };
         }
 
         [HttpPost]
-        public void Post([FromBody] SupplierStoreItem supplier)
+        public void Post([FromBody] SupplierStoreItemDto supplier)
         {
-            _supplierStoreItemOperations.Insert(supplier);
+            _supplierStoreItemOperations.Insert(new SupplierStoreItem { Id = supplier.Id, StoreItemId = supplier.StoreItemId, SupplierId = supplier.SupplierId, Price = supplier.Price });
             _supplierStoreItemOperations.Save();
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] SupplierStoreItem supplier, string id)
+        public void Put([FromBody] SupplierStoreItemDto supplier, string id)
         {
-            _supplierStoreItemOperations.Update(supplier);
+            _supplierStoreItemOperations.Update(new SupplierStoreItem { Id = supplier.Id, StoreItemId = supplier.StoreItemId, SupplierId = supplier.SupplierId, Price = supplier.Price });
             _supplierStoreItemOperations.Save();
         }
 

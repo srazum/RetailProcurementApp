@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RetailProcurement.WebAPI.Dtos;
 using RetailProcurement.WebAPI.Entities;
 using RetailProcurement.WebAPI.Persistence;
 using RetailProcurement.WebAPI.Services;
@@ -22,29 +23,30 @@ public class SupplierController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Supplier> Get()
+    public IEnumerable<SupplierDto> Get()
     {
-        return _supplierOperations.GetAll();
+        return _supplierOperations.GetAll().Select(e => new SupplierDto {  Id = e.Id, Name = e.Name });
     }
 
     [HttpGet]
     [Route("{id}")]
-    public Supplier GetById(string id)
+    public SupplierDto GetById(string id)
     {
-        return _supplierOperations.GetById(id);
+        var supplier = _supplierOperations.GetById(id);
+        return new SupplierDto { Id = supplier.Id, Name = supplier.Name };
     }
 
     [HttpPost]
-    public void Post([FromBody] Supplier supplier)
+    public void Post([FromBody] SupplierDto supplier)
     {
-        _supplierOperations.Insert(supplier);
+        _supplierOperations.Insert(new Supplier { Id = supplier.Id, Name = supplier.Name });
         _supplierOperations.Save();
     }
 
     [HttpPut("{id}")]
-    public void Put([FromBody] Supplier supplier, string id)
+    public void Put([FromBody] SupplierDto supplier, string id)
     {
-        _supplierOperations.Update(supplier);
+        _supplierOperations.Update(new Supplier { Id = supplier.Id, Name = supplier.Name });
         _supplierOperations.Save();
     }
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RetailProcurement.WebAPI.Dtos;
 using RetailProcurement.WebAPI.Entities;
 using RetailProcurement.WebAPI.Persistence;
 using RetailProcurement.WebAPI.Services;
@@ -22,26 +23,27 @@ public class StoreItemsController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<StoreItem> Get()
+    public IEnumerable<StoreItemDto> Get()
     {
-        return _storeItemsOperations.GetAll();
+        return _storeItemsOperations.GetAll().Select(e => new StoreItemDto { Id = e.Id, Name = e.Name  });
     }
 
     [HttpGet("{id}")]
-    public StoreItem GetById(string id)
+    public StoreItemDto GetById(string id)
     {
-        return _storeItemsOperations.GetById(id);
+        var storeItem = _storeItemsOperations.GetById(id);
+        return new StoreItemDto { Id = storeItem.Id, Name = storeItem.Name };
     }
     [HttpPost]
-    public void Post([FromBody] StoreItem storeItem)
+    public void Post([FromBody] StoreItemDto storeItem)
     {
-        _storeItemsOperations.Insert(storeItem);
+        _storeItemsOperations.Insert(new StoreItem { Id = storeItem.Id, Name = storeItem.Name });
         _storeItemsOperations.Save();
     }
     [HttpPut("{id}")]
-    public void Put([FromBody] StoreItem storeItem, string id)
+    public void Put([FromBody] StoreItemDto storeItem, string id)
     {
-        _storeItemsOperations.Update(storeItem);
+        _storeItemsOperations.Update(new StoreItem { Id = storeItem.Id, Name = storeItem.Name });
         _storeItemsOperations.Save();
     }
     [HttpDelete("{id}")]
