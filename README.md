@@ -133,4 +133,4 @@ Factory pattern is used to create instances of data managers. This pattern is us
 
 That's it! Thank you for your time and consideration!
 
-#### NOTE: both contributors on this projects are my personal profiles :)
+#### NOTE: both contributors on this project are my personal profiles :)
