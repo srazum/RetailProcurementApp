@@ -20,7 +20,7 @@ namespace RetailProcurement.WebAPI.Services
         }
         public IEnumerable<OrderDto> GetOrders()
         {
-            return _orderOperations.GetAll().Select(e=> new OrderDto { Id = e.Id });
+            return _orderOperations.GetAll().Select(e=> new OrderDto { Id = e.Id, SupplierId = e.SupplierId });
         }
         public OrderDto GetOrder(int orderId)
         {

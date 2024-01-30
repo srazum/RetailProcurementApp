@@ -30,12 +30,11 @@ namespace RetailProcurement.WebAPI.Services
         }
         public SupplierStatsDto GetSupplierStatistics(int supplierId)
         {
-            var supplierStats = _dbContext.SupplierStoreItems
-                .Where(s => s.SupplierId == supplierId)
-                .Select(s => new SupplierStatsDto()
-                {
-                    TotalOrders = s.OrderItemSuppliers!.Count() })
-                .FirstOrDefault();
+            var supplierStats = _dbContext.Suppliers.Where(o => o.Id == supplierId).Select(o => new SupplierStatsDto
+            {
+                    Id = o.Id, 
+                    TotalOrders = o.Orders == null ? 0 : o.Orders.Count(), 
+                }).FirstOrDefault();
             return supplierStats!;
         }
         public List<SupplierDto> GetPlannedSuppliers(int quarter, int year)

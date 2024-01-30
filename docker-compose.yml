@@ -11,9 +11,9 @@ services:
       - "postgres_image"
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: RetailProcurement.WebAPI/Dockerfile
     ports:
-      - "8000:80"     
+      - "8080:8080"     
     environment:
       ConnectionStrings:DefaultConnection: "host=postgres_image;port=5432;database=retailprocurementdb;username=root;password=root"
       USER: "admin"
@@ -21,6 +21,7 @@ services:
       JWT_ISSUER: "RetailProcurementApp"
       JWT_KEY: "thisisasecretkey@123thisisasecretkey@123"
       JWT_AUDIENCE: "http://localhost:49173"
+      ASPNETCORE_ENVIRONMENT: "Development"
     networks:
       - dockerapi-dev  
   

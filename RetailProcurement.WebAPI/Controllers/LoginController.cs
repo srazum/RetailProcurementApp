@@ -18,7 +18,7 @@ namespace RetailProcurement.WebAPI.Controllers
             _authDetailsProvider = authDetailsProvider;
         }
 
-        [HttpPost, Route("login")]
+        [HttpPost]
         public IActionResult Login(UserDto userDTO)
         {
             try

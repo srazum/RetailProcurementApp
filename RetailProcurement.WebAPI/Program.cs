@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using RetailProcurement.WebAPI.Auth;
 using RetailProcurement.WebAPI.Auth.Interfaces;
 using RetailProcurement.WebAPI.Persistence;
+using RetailProcurement.WebAPI.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +66,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
+builder.Services.AddSignalR();
+
 builder.Services.AddAuthorization();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<RetailProcurementDbContext>(options =>
@@ -80,6 +83,19 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapHub<OrdersHub>("/ordersHub");
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<RetailProcurementDbContext>();
+    if (context.Database.IsRelational() && context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
+}
 
 app.Run();
 

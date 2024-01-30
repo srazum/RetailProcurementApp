@@ -38,21 +38,23 @@ namespace RetailProcurement.WebAPI.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] SupplierStoreItemDto supplier)
+        public SupplierStoreItemDto Post([FromBody] SupplierStoreItemDto supplier)
         {
-            _supplierStoreItemOperations.Insert(new SupplierStoreItem { Id = supplier.Id, StoreItemId = supplier.StoreItemId, SupplierId = supplier.SupplierId, Price = supplier.Price });
+            var supplierStoreItem = new SupplierStoreItem { Id = supplier.Id, StoreItemId = supplier.StoreItemId, SupplierId = supplier.SupplierId, Price = supplier.Price };
+            _supplierStoreItemOperations.Insert(supplierStoreItem);
             _supplierStoreItemOperations.Save();
+            return new SupplierStoreItemDto { Id = supplierStoreItem.Id, Price = supplierStoreItem.Price, StoreItemId = supplierStoreItem.StoreItemId, SupplierId = supplierStoreItem.SupplierId };
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] SupplierStoreItemDto supplier, string id)
+        public void Put([FromBody] SupplierStoreItemDto supplier, int id)
         {
             _supplierStoreItemOperations.Update(new SupplierStoreItem { Id = supplier.Id, StoreItemId = supplier.StoreItemId, SupplierId = supplier.SupplierId, Price = supplier.Price });
             _supplierStoreItemOperations.Save();
         }
 
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public void Delete(int id)
         {
             _supplierStoreItemOperations.Delete(id);
             _supplierStoreItemOperations.Save();

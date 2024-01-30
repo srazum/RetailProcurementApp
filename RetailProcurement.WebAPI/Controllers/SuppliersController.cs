@@ -37,21 +37,23 @@ public class SupplierController : ControllerBase
     }
 
     [HttpPost]
-    public void Post([FromBody] SupplierDto supplier)
-    {
-        _supplierOperations.Insert(new Supplier { Id = supplier.Id, Name = supplier.Name });
+    public SupplierDto Post([FromBody] SupplierDto supplierDto)
+    {   
+        var supplier = new Supplier { Id = supplierDto.Id, Name = supplierDto.Name };
+        _supplierOperations.Insert(supplier);
         _supplierOperations.Save();
+        return new SupplierDto { Id = supplier.Id, Name = supplier.Name };
     }
 
     [HttpPut("{id}")]
-    public void Put([FromBody] SupplierDto supplier, string id)
+    public void Put([FromBody] SupplierDto supplier, int id)
     {
         _supplierOperations.Update(new Supplier { Id = supplier.Id, Name = supplier.Name });
         _supplierOperations.Save();
     }
 
     [HttpDelete("{id}")]
-    public void Delete(string id)
+    public void Delete(int id)
     {
         _supplierOperations.Delete(id);
         _supplierOperations.Save();

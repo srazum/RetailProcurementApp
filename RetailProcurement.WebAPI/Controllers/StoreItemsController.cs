@@ -35,19 +35,21 @@ public class StoreItemsController : ControllerBase
         return new StoreItemDto { Id = storeItem.Id, Name = storeItem.Name };
     }
     [HttpPost]
-    public void Post([FromBody] StoreItemDto storeItem)
+    public StoreItemDto Post([FromBody] StoreItemDto storeItem)
     {
-        _storeItemsOperations.Insert(new StoreItem { Id = storeItem.Id, Name = storeItem.Name });
+        var storeItemEntity = new StoreItem { Id = storeItem.Id, Name = storeItem.Name };
+        _storeItemsOperations.Insert(storeItemEntity);
         _storeItemsOperations.Save();
+        return new StoreItemDto { Name = storeItemEntity.Name, Id = storeItemEntity.Id };
     }
     [HttpPut("{id}")]
-    public void Put([FromBody] StoreItemDto storeItem, string id)
+    public void Put([FromBody] StoreItemDto storeItem, int id)
     {
         _storeItemsOperations.Update(new StoreItem { Id = storeItem.Id, Name = storeItem.Name });
         _storeItemsOperations.Save();
     }
     [HttpDelete("{id}")]
-    public void Delete(string id)
+    public void Delete(int id)
     {
         _storeItemsOperations.Delete(id);
         _storeItemsOperations.Save();

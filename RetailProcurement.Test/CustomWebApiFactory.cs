@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RetailProcurement.WebAPI.Persistence;
 using System.Data.Common;
 
-namespace RetailProcurement.IntegrationTests;
+namespace RetailProcurement.UnitTests;
 public class CustomWebApplicationFactory<TProgram>
     : WebApplicationFactory<TProgram> where TProgram : class
 {
@@ -36,11 +36,10 @@ public class CustomWebApplicationFactory<TProgram>
 
             services.AddDbContext<RetailProcurementDbContext>((container, options) =>
             {
-                var connection = container.GetRequiredService<DbConnection>();
+                //var connection = container.GetRequiredService<RetailProcurementDbContext>();
                 options.UseInMemoryDatabase("integrationTestDb");
             });
         });
-
         builder.UseEnvironment("Development");
     }
 }
