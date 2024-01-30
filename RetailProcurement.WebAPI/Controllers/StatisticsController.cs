@@ -43,6 +43,7 @@ public class StatisticsController : ControllerBase
     [HttpGet("quarterly-plan")]
     public List<SupplierDto> GetQuarterlyPlan()
     {
-        return _statisticsProvider.GetPlannedSuppliers(DateTime.Now.Month / 3, DateTime.Now.Year);
+        var currentQuarter = ((DateTime.Now.Month - DateTime.Now.Month % 4) / 4) + 1;
+        return _statisticsProvider.GetPlannedSuppliers(currentQuarter, DateTime.Now.Year);
     }
 }

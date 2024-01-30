@@ -5,7 +5,7 @@ networks:
     driver: bridge 
 
 services:
-  dockerapi:
+  retailprocurementapp:
     image: dockerapi:latest
     depends_on:
       - "postgres_image"
