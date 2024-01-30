@@ -72,7 +72,8 @@ Solution contains:
 - endpoints CRUD operations over StoreItems, Suppliers, Orders and Statistics
    - Orders endpoint is an added functionality, which allows client to create new order and get some statistics afterwards
 - business logic and relations over those entities
-- ef core code first database design and migrations (migrations are done automatically on startup, due to simplicity)
+- ef core code first database design and migrations (migrations are done automatically on startup, due to simple use-case)
+- added Bogus seed data for all entities and relations
 - swagger UI for testing endpoints
 - basic authentication and authorization mechanism
 - SignalR hub for sending notification to clients when new order is created (only hub is implemented, client side is not implemented)

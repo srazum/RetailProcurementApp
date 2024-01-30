@@ -45,7 +45,7 @@ namespace RetailProcurement.WebAPI.Services
         }
         public void AddSupplierPlan(QuarterlyPlanDto quarterlyPlan)
         {
-            _dbContext.QuarterlyPlans.Add(new QuarterlyPlan() { Quarter = quarterlyPlan.Quarter, Year = quarterlyPlan.Year });
+            _dbContext.QuarterlyPlans.Add(new QuarterlyPlan() { SupplierId = quarterlyPlan.SupplierId, Quarter = quarterlyPlan.Quarter, Year = quarterlyPlan.Year });
             _dbContext.SaveChanges();
         }
     }
