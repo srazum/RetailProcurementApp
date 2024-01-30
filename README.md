@@ -129,3 +129,8 @@ Factory pattern is used to create instances of data managers. This pattern is us
     }
 
 3. Throughout code there is also extensive usage of dependency injection
+
+
+That's it! Thank you for your time and consideration!
+
+#### NOTE: both contributors on this projects are my personal profiles :)
